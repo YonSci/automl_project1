@@ -14,6 +14,6 @@ jobs:
           python train.py  # generate plot.png
 
           echo "Model Metrics"
-          cat metrics.txt 
+          cat output/metrics.txt 
           
 
