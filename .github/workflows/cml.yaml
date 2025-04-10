@@ -49,7 +49,8 @@ jobs:
           echo "## Performance Plot" >> report.md
           # 4. Add the plot image (CML knows how to handle local images)
           #    Ensure the path 'output/feature_importances.png' is correct
-          echo "![Performance Plot](output/feature_importances.png)" >> report.md
+          echo "![Feature Importances](output/feature_importances.png)" >> report.md
+          echo "![Resdual Plot](output/residuals_plot.png)" >> report.md
 
           # 5. Use CML to publish the report.md file as a comment
           #    on the GitHub commit or Pull Request
