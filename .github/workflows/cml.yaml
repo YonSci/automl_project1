@@ -13,7 +13,13 @@ jobs:
           pip install -r requirements.txt
           python train.py  # generate plot.png
 
-          echo "Model Metrics"
-          cat output/metrics.txt 
+          echo "## Model Metrics" > report.md
+          cat output/metrics.txt >> report.md
+
+          echo "## Data Visualization" >> report.md
+          cml-publish feature_importances.png --md >> report.md
+          cml-publish residuals_plot.png --md >> report.md
+
+          cml-send-comment report.md
           
 
