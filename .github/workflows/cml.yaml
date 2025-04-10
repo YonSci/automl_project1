@@ -16,6 +16,9 @@ jobs:
           echo "## Model Metrics" > report.md
           cat output/metrics.txt >> report.md
 
+          echo "## Model Metrics" > report.md
+          cat output/metrics.txt >> report.md
+
           echo "## Data Visualization" >> report.md
           echo "![Feature Importances](output/feature_importances.png)" >> report.md
           echo "![Residuals Plot](output/residuals_plot.png)" >> report.md
