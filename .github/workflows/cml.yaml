@@ -11,10 +11,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
-          python train.py  # generate plot.png
-
-          echo "## Model Metrics" > report.md
-          cat output/metrics.txt >> report.md
+          python train.py  # Ensure this generates plot.png and metrics.txt
 
           echo "## Model Metrics" > report.md
           cat output/metrics.txt >> report.md
@@ -23,7 +20,5 @@ jobs:
           echo "![Feature Importances](output/feature_importances.png)" >> report.md
           echo "![Residuals Plot](output/residuals_plot.png)" >> report.md
 
-          # Corrected `cml comment create` command
+          # Create a CML comment with the report
           cml comment create --commit-sha $GITHUB_SHA --pr --markdown-file report.md
-
-          
