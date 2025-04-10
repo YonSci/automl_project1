@@ -1,7 +1,7 @@
 name: model-training-and-reporting
 
 # Trigger on pull request events (opened, synchronized/pushed to)
-on: [pull_request] # <--- CHANGE THIS LINE
+on: [pull_request] # <--- CHANGE THIS LINE TO YOUR DESIRED EVENT
 
 jobs:
   train-and-report:
