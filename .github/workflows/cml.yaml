@@ -22,3 +22,11 @@ jobs:
 
           # # Create a CML comment with the report
           # cml comment create --commit-sha $GITHUB_SHA --pr --markdown-file report.md
+
+          # Print the metrics Report
+          echo "## Model Metrics" > report.md
+          cat output/metrics.txt >> report.md
+
+
+
+          # Print the Visualization Report
