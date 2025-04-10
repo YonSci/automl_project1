@@ -6,14 +6,19 @@ on: [push]
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
-    # Use a CML-provided Docker image with necessary tools
-    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+
+
+
 
     # <<<--- ADD THIS PERMISSIONS BLOCK --- >>>
     permissions:
       contents: write # Required to post commit comments
 
     steps:
+      # Set up CML (Continuous Machine Learning)
+      # This action sets up CML in the GitHub Actions environment
+      # It installs the CML CLI and sets up the environment for CML commands
+      - uses: iterative/setup-cml@v1
       # Check out the repository code
       - uses: actions/checkout@v3
 
