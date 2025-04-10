@@ -17,9 +17,8 @@ jobs:
           cat output/metrics.txt >> report.md
 
           echo "## Data Visualization" >> report.md
-          cml-publish output/feature_importances.png --md >> report.md
-          cml-publish output/residuals_plot.png --md >> report.md
+          echo "![Feature Importances](output/feature_importances.png)" >> report.md
+          echo "![Residuals Plot](output/residuals_plot.png)" >> report.md
 
-          cml-send-comment report.md
-          
-
+          # Use the updated `cml comment create` command
+          cml comment create --commit-sha $GITHUB_SHA --pr --markdown-file report.md
