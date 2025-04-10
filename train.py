@@ -28,8 +28,8 @@ def main():
     train_score = model.score(X_train, y_train)
     test_score = model.score(X_test, y_test)
     
-    print(f"Training Score: {train_score:.4f}")
-    print(f"Test Score: {test_score:.4f}")
+    # print(f"Training Score: {train_score:.4f}")
+    # print(f"Test Score: {test_score:.4f}")
     
     # 6) Write the scores into a single file called metrics.txt.
     with open("output/metrics.txt", "w") as f:
