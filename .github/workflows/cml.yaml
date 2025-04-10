@@ -1,58 +1,51 @@
 name: model-training-and-reporting
 
-# This workflow runs on every push to any branch
-on: [push]
+# Trigger on pull request events (opened, synchronized/pushed to)
+on: [pull_request] # <--- CHANGE THIS LINE
 
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
-    # Use a CML-provided Docker image with necessary tools
     container: docker://ghcr.io/iterative/cml:0-dvc2-base1
-
-    # <<<--- ADD THIS PERMISSIONS BLOCK --- >>>
     permissions:
-      contents: write # Required to post commit comments
+      contents: write      # Needed to checkout code and potentially for CML internals
+      pull-requests: write # Needed specifically to post comments on PRs
 
     steps:
-      # Check out the repository code
+      # Check out the repository code associated with the PR
       - uses: actions/checkout@v3
+        # Fetch depth 0 is often recommended for PRs to ensure CML/DVC
+        # can compare against the base branch if needed, though not
+        # strictly required for just posting a comment.
+        with:
+          fetch-depth: 0
 
       # Step 1: Train the model
       - name: Train model
-        # Set the GITHUB_TOKEN environment variable (still good practice)
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Install Python dependencies
           pip install -r requirements.txt
-
-          # Run the training script
-          # IMPORTANT: Ensure train.py generates 'output/metrics.txt' and 'output/feature_importances.png'
+          # Create output directory if it doesn't exist (good practice)
+          mkdir -p output
           python train.py
 
       # Step 2: Create CML report
       - name: Create CML report
-        # Also needs the GITHUB_TOKEN to post the report comment
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Create a markdown report file (report.md)
-          # 1. Add metrics title
           echo "## Model Metrics" >> report.md
-          # 2. Append metrics from the text file into a code block
-          #    Ensure the path 'output/metrics.txt' is correct based on train.py
           echo '```' >> report.md
           cat output/metrics.txt >> report.md
           echo '```' >> report.md
 
-          # 3. Add plot title
-          echo "## Performance Plot" >> report.md
-          # 4. Add the plot image (CML knows how to handle local images)
-          #    Ensure the path 'output/feature_importances.png' is correct
+          echo "## Feature Importances" >> report.md
           echo "![Feature Importances](output/feature_importances.png)" >> report.md
-          echo "![Resdual Plot](output/residuals_plot.png)" >> report.md
 
-          # 5. Use CML to publish the report.md file as a comment
-          #    on the GitHub commit or Pull Request
+          echo "## Residuals Plot" >> report.md
+          echo "![Residuals Plot](output/residuals_plot.png)" >> report.md
+
+          # Publish the report to the PR comment
           cml comment create report.md
-
