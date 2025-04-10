@@ -1,32 +1,50 @@
 name: model-training-and-reporting
+
+# This workflow runs on every push to any branch
 on: [push]
+
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
+    # Use a CML-provided Docker image with necessary tools
     container: docker://ghcr.io/iterative/cml:0-dvc2-base1
     steps:
+      # Check out the repository code
       - uses: actions/checkout@v3
+
+      # Step 1: Train the model
       - name: Train model
+        # Set the GITHUB_TOKEN environment variable for CML commands
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Install Python dependencies
           pip install -r requirements.txt
-          python train.py  # Ensure this generates plot.png and metrics.txt
 
-          echo "## Model Metrics" > report.md
+          # Run the training script
+          # IMPORTANT: Ensure train.py generates 'metrics.txt' and 'plot.png'
+          # in the root of the repository for the next step to find them.
+          python train.py
+
+      # Step 2: Create CML report
+      - name: Create CML report
+        # Also needs the GITHUB_TOKEN to post the report comment
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create a markdown report file (report.md)
+          # 1. Add metrics title
+          echo "## Model Metrics" >> report.md
+          # 2. Append metrics from the text file into a code block
+          echo '```' >> report.md
           cat output/metrics.txt >> report.md
+          echo '```' >> report.md
 
-          # echo "## Data Visualization" >> report.md
-          # echo "![Feature Importances](output/feature_importances.png)" >> report.md
-          # echo "![Residuals Plot](output/residuals_plot.png)" >> report.md
+          # 3. Add plot title
+          echo "## Performance Plot" >> report.md
+          # 4. Add the plot image (CML knows how to handle local images)
+          echo "![Performance Plot](output/feature_importances.png)" >> report.md
 
-          # # Create a CML comment with the report
-          # cml comment create --commit-sha $GITHUB_SHA --pr --markdown-file report.md
-
-          # Print the metrics Report
-          echo "## Model Metrics" > report.md
-          cat output/metrics.txt >> report.md
-
-
-
-          # Print the Visualization Report
+          # 5. Use CML to publish the report.md file as a comment
+          #    on the GitHub commit or Pull Request
+          cml comment create report.md
