@@ -1,0 +1,33 @@
+stages:
+  get_data:
+    cmd: python data_generation.py 
+    deps:
+      - data_generation.py 
+    outs:
+      - raw_data/data.csv
+  process_data:
+    cmd: python data_processing.py 
+    deps:
+      - data_processing.py 
+      - raw_data/data.csv
+    outs:
+      - processed_data/pro_data.csv
+  train_model:
+    cmd: python train_model.py 
+    deps:
+      - train_model.py 
+      - processed_data/pro_data.csv
+    outs:
+      - plots/LinearRegression_actual_vs_predicted.png
+      - plots/Ridge_actual_vs_predicted.png
+      - plots/Lasso_actual_vs_predicted.png
+      - plots/RandomForest_actual_vs_predicted.png
+      - plots/LinearRegression_residuals.png
+      - plots/Ridge_residuals.png
+      - plots/Lasso_residuals.png
+      - plots/RandomForest_residuals.png
+    
+    metrics:
+      - metrics.json:
+          cache: false
+      
