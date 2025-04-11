@@ -1,6 +1,0 @@
-[core]
-    remote = localstore
-['remote "myremote"']
-    url = s3://cml-dvc-experment
-['remote "localstore"']
-    url = D:/dvc-store
