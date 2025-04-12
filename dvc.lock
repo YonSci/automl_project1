@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python data_generation.py
+    deps:
+    - path: data_generation.py
+      hash: md5
+      md5: 3a79d76f5abe06b12d46a68ac1b9a87e
+      size: 712
+    outs:
+    - path: raw_data/data.csv
+      hash: md5
+      md5: ca3c017b999ac8422388e5e6db22f8ac
+      size: 21740
+  process_data:
+    cmd: python data_preprocessing.py
+    deps:
+    - path: data_preprocessing.py
+      hash: md5
+      md5: 84dc04cd9dccb4484df1f9ede76e0f97
+      size: 1246
+    - path: raw_data/data.csv
+      hash: md5
+      md5: ca3c017b999ac8422388e5e6db22f8ac
+      size: 21740
+    outs:
+    - path: processed_data/pro_data.csv
+      hash: md5
+      md5: e810a9629dcacac64624d693cbe7cb96
+      size: 11845
+  train_model:
+    cmd: python train_models.py
+    deps:
+    - path: processed_data/pro_data.csv
+      hash: md5
+      md5: e810a9629dcacac64624d693cbe7cb96
+      size: 11845
+    - path: train_models.py
+      hash: md5
+      md5: 0050bf485d0cc35ef1a194ce748118f1
+      size: 2655
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 10b82b94aba7b21199046cfca62a5f9c
+      size: 534
+    - path: plots/Lasso_actual_vs_predicted.png
+      hash: md5
+      md5: 67e569391e6e10edda1794ccb70f0805
+      size: 26459
+    - path: plots/Lasso_residual_plot.png
+      hash: md5
+      md5: 22e9ac04cad5687128f28c57b4d44823
+      size: 20011
+    - path: plots/LinearRegression_actual_vs_predicted.png
+      hash: md5
+      md5: 0979255c3f5f6eb91fb6da8a68e02cd9
+      size: 27934
+    - path: plots/LinearRegression_residual_plot.png
+      hash: md5
+      md5: 0a874998591f09fbc34d22ec8508f8cc
+      size: 21395
+    - path: plots/RandomForest_actual_vs_predicted.png
+      hash: md5
+      md5: 17db5b558d044e931d8200dbd2149044
+      size: 27638
+    - path: plots/RandomForest_residual_plot.png
+      hash: md5
+      md5: 584866ce6debb63b01bc71778669cfe8
+      size: 20555
+    - path: plots/Ridge_actual_vs_predicted.png
+      hash: md5
+      md5: 61fa7ac019870a70add50dd16731b071
+      size: 26744
+    - path: plots/Ridge_residual_plot.png
+      hash: md5
+      md5: a9a004e4dfa503eb31f9a047419d3c9b
+      size: 20125
