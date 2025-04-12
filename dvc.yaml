@@ -26,7 +26,16 @@ stages:
       - plots/Ridge_residual_plot.png
       - plots/Lasso_residual_plot.png
       - plots/RandomForest_residual_plot.png
+
     
     metrics:
       - metrics.json:
           cache: false
+
+  test model:
+    cmd: python predict_with_models.py
+    deps:
+      - predict_with_models.py
+      - processed_data/pro_data.csv
+    outs:
+      - predictions.csv
