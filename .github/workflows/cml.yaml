@@ -16,6 +16,10 @@ jobs:
     steps:
       # Check out the repository code
       - uses: actions/checkout@v3
+
+    # Mark repository as safe
+      - name: Mark repository as safe
+        run: git config --global --add safe.directory /__w/automl_project1/automl_project1
       - name: CML RUN
         # Set the GITHUB_TOKEN environment variable (still good practice)
         env:
