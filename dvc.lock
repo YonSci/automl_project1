@@ -40,7 +40,6 @@ stages:
       md5: 67e569391e6e10edda1794ccb70f0805
       size: 26459
     - path: plots/Lasso_residual_plot.png
-      hash: md5
       md5: 22e9ac04cad5687128f28c57b4d44823
       size: 20011
     - path: plots/LinearRegression_actual_vs_predicted.png
@@ -53,7 +52,6 @@ stages:
       md5: 17db5b558d044e931d8200dbd2149044
       size: 27638
     - path: plots/RandomForest_residual_plot.png
-      hash: md5
       md5: 584866ce6debb63b01bc71778669cfe8
       size: 20555
     - path: plots/Ridge_actual_vs_predicted.png
