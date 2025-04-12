@@ -24,10 +24,10 @@ def train_and_evaluate(input_file="processed_data/pro_data.csv"):
     
     # Define models
     models = {
-        "LinearRegression": LinearRegression(),
-        "Lasso": Lasso(alpha=0.1, random_state=42),
-        "Ridge": Ridge(alpha=1.0, random_state=42),
-        "RandomForest": RandomForestRegressor(n_estimators=100, random_state=42)
+        "LinearRegression": LinearRegression(fit_intercept=True),
+        "Lasso": Lasso(alpha=0.3, random_state=42),
+        "Ridge": Ridge(alpha=0.9, random_state=42),
+        "RandomForest": RandomForestRegressor(n_estimators=150, random_state=42)
     }
     
     # Store metrics
