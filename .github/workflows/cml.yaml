@@ -30,7 +30,8 @@ jobs:
           dvc repro
 
           git fetch --prune
-          dvc metrics diff  --show-md compare-ml-model1 > report.md
+          # dvc metrics diff  --show-md compare-ml-model1 > report.md
+          dvc metrics diff compare-ml-model1 --targets metrics.json --show-md >> report.md
 
           # Add figure to the report
           echo "## Data Visualization"
