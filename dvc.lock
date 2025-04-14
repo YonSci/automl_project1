@@ -4,111 +4,87 @@ stages:
     cmd: python data_generation.py
     deps:
     - path: data_generation.py
-      hash: md5
       md5: 3a79d76f5abe06b12d46a68ac1b9a87e
       size: 712
     outs:
     - path: raw_data/data.csv
-      hash: md5
       md5: ca3c017b999ac8422388e5e6db22f8ac
       size: 21740
   process_data:
     cmd: python data_preprocessing.py
     deps:
     - path: data_preprocessing.py
-      hash: md5
       md5: 36ce6c49a3af6d7961d9af430da84711
       size: 742
     - path: raw_data/data.csv
-      hash: md5
       md5: ca3c017b999ac8422388e5e6db22f8ac
       size: 21740
     outs:
     - path: processed_data/pro_data.csv
-      hash: md5
       md5: 296491427cc2c48cc363ec6e88164f53
       size: 21710
   train_model:
     cmd: python train_models.py
     deps:
     - path: processed_data/pro_data.csv
-      hash: md5
       md5: 296491427cc2c48cc363ec6e88164f53
       size: 21710
     - path: train_models.py
-      hash: md5
       md5: 80e8a6c45bb5223f187aa322f52a6bb0
       size: 3966
     outs:
     - path: metrics.json
-      hash: md5
       md5: dec60a60941efc1357dd6506646125fd
       size: 543
     - path: plots/Lasso_actual_vs_predicted.png
-      hash: md5
       md5: d93e676c93a5c205c9e8b7f3d0fe1901
       size: 25906
     - path: plots/Lasso_residual_plot.png
-      hash: md5
       md5: f71c5618de609e225e8b5ec5b00de73a
       size: 20314
     - path: plots/LinearRegression_actual_vs_predicted.png
-      hash: md5
       md5: 8167199497f892381ce62bef858ff0ba
       size: 27483
     - path: plots/LinearRegression_residual_plot.png
-      hash: md5
       md5: 7774e7494bf9c8f8e066ab683ce6a166
       size: 19638
     - path: plots/RandomForest_actual_vs_predicted.png
-      hash: md5
       md5: 86565c35d6f40e65f9227311490a06a9
       size: 27004
     - path: plots/RandomForest_residual_plot.png
-      hash: md5
       md5: d1e2f151581de72cc67c89064b3035dc
       size: 20697
     - path: plots/Ridge_actual_vs_predicted.png
-      hash: md5
       md5: 86b06d6f64ea8d6b59fcf055cb7d8568
       size: 26157
     - path: plots/Ridge_residual_plot.png
-      hash: md5
       md5: 1410772fc13f95e4a4a139e64a56dae3
       size: 18172
   test model:
     cmd: python predict_with_models.py
     deps:
     - path: predict_with_models.py
-      hash: md5
       md5: 8d0bf910861bae7f229ad0bd302998d9
       size: 4348
     - path: processed_data/pro_data.csv
-      hash: md5
       md5: 296491427cc2c48cc363ec6e88164f53
       size: 21710
     outs:
     - path: plots/predictions_Lasso.png
-      hash: md5
       md5: 87e96102d0bfe81b070b4948e7e17398
       size: 63629
     - path: plots/predictions_LinearRegression.png
-      hash: md5
       md5: 46265f1b4cabc8fe28c4da091bb7f266
       size: 65705
     - path: plots/predictions_RandomForest.png
-      hash: md5
       md5: 984b946d0d0d9a47a0aecb214f3a65c9
       size: 69656
     - path: plots/predictions_Ridge.png
-      hash: md5
       md5: fbd82a7617b58ee0c1c38b0aee9c7fa3
       size: 63557
     - path: plots/predictions_all_models.png
-      hash: md5
       md5: 7c98fae048ef22f3d0161f17a7a4a96e
       size: 114405
     - path: predictions.csv
-      hash: md5
       md5: f53fd1ecca3ec66f98fe04df1a1c8cb3
       size: 7686
