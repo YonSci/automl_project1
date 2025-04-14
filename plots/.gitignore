@@ -6,3 +6,8 @@
 /Ridge_residual_plot.png
 /Lasso_residual_plot.png
 /RandomForest_residual_plot.png
+/predictions_LinearRegression.png
+/predictions_Ridge.png
+/predictions_Lasso.png
+/predictions_RandomForest.png
+/predictions_all_models.png

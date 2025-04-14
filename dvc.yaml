@@ -39,3 +39,9 @@ stages:
       - processed_data/pro_data.csv
     outs:
       - predictions.csv
+      - plots/predictions_LinearRegression.png
+      - plots/predictions_Ridge.png
+      - plots/predictions_Lasso.png
+      - plots/predictions_RandomForest.png
+      - plots/predictions_all_models.png  
+

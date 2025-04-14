@@ -43,11 +43,15 @@ jobs:
           echo "![Ridge Residual Plot](plots/Ridge_residual_plot.png)" >> report.md
           echo "![Lasso Residual Plot](plots/Lasso_residual_plot.png)" >> report.md
           echo "![RandomForest Residual Plot](plots/RandomForest_residual_plot.png)" >> report.md
+          
+          echo "## Prediction Results"
+
+          echo "![predictions_LinearRegression.png](plots/predictions_LinearRegression.png)" >> report.md
+          echo "![predictions_Ridge.png](plots/predictions_Ridge.png)" >> report.md
+          echo "![predictions_Lasso.png](plots/predictions_Lasso.png)" >> report.md
+          echo "![predictions_RandomForest.png](plots/predictions_RandomForest.png)" >> report.md
+          echo "![predictions_all_models.png](plots/predictions_all_models.png)" >> report.md
 
           cml comment create report.md
 
 
-
-
-
-          
